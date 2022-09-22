@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ClickRush</string>
+    <string name="game_Selesai">"Time's up! Your score was:"</string>
 </resources>
