@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ClickRush</string>
     <string name="game_Selesai">"Time's up! Your score was:"</string>
+    <string name="about_menu">About</string>
+    <string name="about_title">Clickrush</string>
+    <string name="about_text">Created by 71200537-Handitya Gilang</string>
 </resources>
