@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CatatanTempat</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="google_maps_key">AIzaSyDr0Uaxavlku_HomLPPEzBdz54j7IfAAJg</string>
 </resources>
