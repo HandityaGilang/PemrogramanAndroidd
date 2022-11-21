@@ -1,6 +1,7 @@
 package com.pemrogandroid.catatantempat.viewmodel
 
 import android.app.Application
+import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -10,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 import com.pemrogandroid.catatantempat.model.Bookmark
 import com.pemrogandroid.catatantempat.repository.BookmarkRepo
+import com.pemrogandroid.catatantempat.util.ImageUtil
 
 class MapsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -31,6 +33,8 @@ class MapsViewModel(application: Application) : AndroidViewModel(application) {
 
         val newId = bookmarkRepo.addBookmark(bookmark)
         Log.i(TAG, "New bookmark $newId added to the database.")
+
+        image?.let { bookmark.setImage(it,getApplication()) }
     }
 
     fun getBookmarkMarkerViews():
@@ -58,5 +62,9 @@ class MapsViewModel(application: Application) : AndroidViewModel(application) {
         var id: Long? = null,
         var name: String? = null,
         var location: LatLng = LatLng(0.0, 0.0)
-    )
+    ) {
+        fun getImage(context: Context) = id?.let {
+            ImageUtil.loadBitmapFromFile(context, Bookmark.generateImageFilename(it))
+        }
+    }
 }

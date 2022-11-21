@@ -173,6 +173,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .snippet(place.phoneNumber)
         )
         marker?.tag = PlaceInfo(place, photo)
+        marker?.showInfoWindow()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -242,6 +243,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun handleInfoWindowClick(marker: Marker?) {
         val placeInfo = (marker?.tag as PlaceInfo)
+        when(marker?.tag){
+            is MapsActivity.PlaceInfo->{
+                val placeInfo = (marker?.tag as PlaceInfo)
+                if (placeInfo.place !=null){
+                    GlobalScope.launch {
+                        mapsViewModel.addBookmarkFromPlace(placeInfo.place,placeInfo.image)
+                    }
+                }
+            }
+            is MapsViewModel.BookmarkMarkerView ->{
+                val bookmarkView = marker.tag as MapsViewModel.BookmarkMarkerView
+                marker.hideInfoWindow()
+                bookmarkView.id?.let {
+
+                }
+            }
+        }
         if (placeInfo.place != null) {
             GlobalScope.launch {
                 mapsViewModel.addBookmarkFromPlace(placeInfo.place, placeInfo.image)
@@ -249,6 +267,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         marker.remove()
     }
+
+    private fun startBookmarkDetails
 
     class PlaceInfo(val place: Place? = null, val image: Bitmap? = null)
 }
