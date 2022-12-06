@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">MovieKoh</string>
+    <string name="app_name">MovieKu</string>
+    <string name="TMDB_API_KEY">f219b8f04b716dab27f0a1c400ff9dab</string>
 </resources>

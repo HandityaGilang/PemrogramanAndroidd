@@ -1,0 +1,4 @@
+
+### Get search movie
+GET https://api.themoviedb.org/3/search/movie?api_key=f219b8f04b716dab27f0a1c400ff9dab&query=godzila
+Accept: application/json
