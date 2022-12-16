@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".ui.search.SearchActivity"
                   android:exported="false"/>
+        <activity android:name=".ui.DetailMovie.DetailMovieActivity"
+                  android:exported="false"/>
         <activity android:name=".ui.addmovie.AddMovieActivity"
                   android:exported="false"/>
     </application>

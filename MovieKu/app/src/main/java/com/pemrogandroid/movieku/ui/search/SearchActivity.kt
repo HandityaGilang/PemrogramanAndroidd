@@ -13,22 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pemrogandroid.movieku.databinding.ActivitySearchMovieBinding
 import com.pemrogandroid.movieku.model.TmdbResponse
 import com.pemrogandroid.movieku.repository.RemoteDataSource
+import com.pemrogandroid.movieku.ui.mainmenu.MainContract
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(), SearchContract.ViewInterface {
     private val TAG = "SearchActivity"
 
     lateinit var binding: ActivitySearchMovieBinding
     private lateinit var adapter: SearchAdapter
     private var remoteDataSource = RemoteDataSource()
-    private val compositeDisposable = CompositeDisposable()
+    private lateinit var searchPresenter: SearchContract.PresenterInterface
 
     private lateinit var query: String
-    private var dataSource = RemoteDataSource()
 
     companion object {
         val SEARCH_QUERY = "searchQuery"
@@ -42,6 +42,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        searchPresenter = SearchPresenter(this, remoteDataSource)
         query = intent.getStringExtra(SEARCH_QUERY)!!
 
         binding.searchResultsRecyclerview.layoutManager = LinearLayoutManager(this)
@@ -49,47 +50,56 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        compositeDisposable.clear()
+        searchPresenter.onStop()
+
     }
 
     override fun onStart() {
         super.onStart()
         binding.progressBar.visibility = VISIBLE
-        getSearchResult(query)
+        searchPresenter.getSearchResult(query)
     }
 
-    val searchResultsObservable: (String) -> Observable<TmdbResponse> =
-        { query ->
-            remoteDataSource.searchResultObserveable(query)
-        }
-
-    val resultObserver: DisposableObserver<TmdbResponse>
-        get() = object : DisposableObserver<TmdbResponse>()  {
-            override fun onNext(response: TmdbResponse) {
-                Log.i(TAG, "resultObserver: "+response.totalResults)
-                displayResult(response)
-            }
-
-            override fun onError(e: Throwable) {
-                Log.d(TAG, "onError: "+e.message)
-                Toast.makeText(this@SearchActivity, "Error fetching Movie Data", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onComplete() {
-                Log.d(TAG, "Completed")
-            }
-        }
-
-    private fun getSearchResult(query: String) {
-        val searchResultDisposable = searchResultsObservable(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(resultObserver)
-
-        compositeDisposable.add(searchResultDisposable)
+    override fun displayError(message: String) {
+        displayMessage(message)
     }
 
-    fun displayResult(tmdbResponse: TmdbResponse) {
+    override fun displayMessage(message: String) {
+        Toast.makeText(this@SearchActivity, message, Toast.LENGTH_LONG).show()
+    }
+
+//    val searchResultsObservable: (String) -> Observable<TmdbResponse> =
+//        { query ->
+//            remoteDataSource.searchResultObserveable(query)
+//        }
+//
+//    val resultObserver: DisposableObserver<TmdbResponse>
+//        get() = object : DisposableObserver<TmdbResponse>()  {
+//            override fun onNext(response: TmdbResponse) {
+//                Log.i(TAG, "resultObserver: "+response.totalResults)
+//                displayResult(response)
+//            }
+//
+//            override fun onError(e: Throwable) {
+//                Log.d(TAG, "onError: "+e.message)
+//                Toast.makeText(this@SearchActivity, "Error fetching Movie Data", Toast.LENGTH_LONG).show()
+//            }
+//
+//            override fun onComplete() {
+//                Log.d(TAG, "Completed")
+//            }
+//        }
+//
+//    private fun getSearchResult(query: String) {
+//        val searchResultDisposable = searchResultsObservable(query)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeWith(resultObserver)
+//
+//        compositeDisposable.add(searchResultDisposable)
+//    }
+
+    override fun displayResult(tmdbResponse: TmdbResponse) {
         binding.progressBar.visibility = INVISIBLE
 
         if (tmdbResponse.totalResults == null || tmdbResponse.totalResults == 0) {

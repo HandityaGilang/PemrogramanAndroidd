@@ -3,16 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Kuliah/Semester5/Progandro/testing/PemrogAndroDemo-master/MovieKu/app/src/main/res/drawable/ic_delete_white_24dp.xml" value="0.1895" />
-        <entry key="..\:/Kuliah/Semester5/Progandro/testing/PemrogAndroDemo-master/MovieKu/app/src/main/res/layout/activity_add_movie.xml" value="0.22826086956521738" />
-        <entry key="..\:/Kuliah/Semester5/Progandro/testing/PemrogAndroDemo-master/MovieKu/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/Kuliah/Semester5/Progandro/testing/PemrogAndroDemo-master/MovieKu/app/src/main/res/layout/activity_movie_details.xml" value="0.18125" />
-        <entry key="..\:/Kuliah/Semester5/Progandro/testing/PemrogAndroDemo-master/MovieKu/app/src/main/res/layout/activity_search_movie.xml" value="0.22826086956521738" />
-        <entry key="..\:/Kuliah/Semester5/Progandro/testing/PemrogAndroDemo-master/MovieKu/app/src/main/res/layout/item_movie_details.xml" value="0.18125" />
-        <entry key="..\:/Kuliah/Semester5/Progandro/testing/PemrogAndroDemo-master/MovieKu/app/src/main/res/layout/item_movie_main.xml" value="0.18125" />
+        <entry key="..\:/PemrogAndro/MovieKu/app/src/main/res/layout/activity_add_movie.xml" value="0.25833333333333336" />
+        <entry key="..\:/PemrogAndro/MovieKu/app/src/main/res/layout/activity_main.xml" value="0.25833333333333336" />
+        <entry key="..\:/PemrogAndro/MovieKu/app/src/main/res/layout/activity_movie_details.xml" value="0.25833333333333336" />
+        <entry key="..\:/PemrogAndro/MovieKu/app/src/main/res/layout/activity_search_movie.xml" value="0.1527777777777778" />
+        <entry key="..\:/PemrogAndro/MovieKu/app/src/main/res/layout/item_movie_details.xml" value="0.25833333333333336" />
+        <entry key="..\:/PemrogAndro/MovieKu/app/src/main/res/layout/item_movie_main.xml" value="0.25833333333333336" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="17" project-jdk-type="JavaSDK" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
 </project>

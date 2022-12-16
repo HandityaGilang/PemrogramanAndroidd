@@ -18,7 +18,6 @@ open class LocalDataSource(application: Application) {
         allMovies = movieDao.all
     }
 
-
     fun insert(movie: Movie) {
         thread {
             movieDao.insert(movie)
@@ -36,5 +35,4 @@ open class LocalDataSource(application: Application) {
             movieDao.update(movie)
         }
     }
-
 }

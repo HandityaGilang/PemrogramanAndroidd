@@ -3,11 +3,13 @@ package com.pemrogandroid.movieku.ui.mainmenu
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.pemrogandroid.movieku.R
 import com.pemrogandroid.movieku.databinding.ItemMovieMainBinding
 import com.pemrogandroid.movieku.model.Movie
 import com.pemrogandroid.movieku.network.RetrofitClient
+import com.pemrogandroid.movieku.ui.search.SearchActivity
 
 import com.squareup.picasso.Picasso
 
@@ -15,7 +17,8 @@ import java.util.HashSet
 
 class MainAdapter(
     internal var movieList: List<Movie>,
-    internal var context: Context
+    internal var context: Context,
+    var listener: MainActivity.RecyclerItemListener
 ) : RecyclerView.Adapter<MoviesHolder>() {
     // HashMap to keep track of which items were selected for deletion
     val selectedMovies = HashSet<Movie>()
@@ -23,6 +26,9 @@ class MainAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesHolder {
         val binding = ItemMovieMainBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = MoviesHolder(binding)
+        binding.root.setOnClickListener { v ->
+            listener.onItemClick(v, viewHolder.absoluteAdapterPosition)
+        }
 
         return viewHolder
     }
@@ -36,6 +42,10 @@ class MainAdapter(
             Picasso.get().load(RetrofitClient.TMDB_IMAGEURL + movieList[position].posterPath)
                 .into(holder.binding.movieImageview)
         }
+
+//        holder.binding.viewer.setOnClickListener {
+//
+//        }
 
         holder.binding.checkbox.setOnClickListener {
             if (!selectedMovies.contains(movieList[position])) {

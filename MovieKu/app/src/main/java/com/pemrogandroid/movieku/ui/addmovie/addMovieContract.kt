@@ -1,19 +1,17 @@
-package com.pemrogandroid.movieku.ui.addmovie
+package com.pemrogandroid.movieku.ui.addMovie
 
-import androidx.appcompat.app.AppCompatActivity
+class AddMovieContract {
 
-class addMovieContract {
+    interface PresenterInterface {
+        fun addMovie(id: Int, title:String, releaseDate:String, posterPath:String)
 
-    interface PresenterInterfacec{
-        fun addMovie(id : Int, title : String, releaseDate : String, posterPath : String)
     }
 
-    interface ViewInterface{
-
-        fun returnToMain()
-
-        fun displayMessage(message : String)
+    interface ViewInterface {
+        fun displayMessage(message: String)
 
         fun displayError(message: String)
+
+        fun returnToMain()
     }
 }

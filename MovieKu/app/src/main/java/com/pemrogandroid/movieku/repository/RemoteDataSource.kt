@@ -2,6 +2,7 @@ package com.pemrogandroid.movieku.repository
 
 import com.pemrogandroid.movieku.MovieKuApp
 import com.pemrogandroid.movieku.R
+import com.pemrogandroid.movieku.model.MovieDetailsResponse
 import com.pemrogandroid.movieku.model.TmdbResponse
 import com.pemrogandroid.movieku.network.RetrofitClient
 import io.reactivex.Observable
@@ -13,6 +14,13 @@ open class RemoteDataSource {
     fun searchResultObserveable(query: String): Observable<TmdbResponse> {
         return RetrofitClient.movieApi
             .searchMovie(MovieKuApp.instance.resources.getString(R.string.TMDB_API_KEY), query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun searchResultObserveableID(query: Int): Observable<MovieDetailsResponse>? {
+        return RetrofitClient.movieApi
+            .searchMovie2(query , MovieKuApp.instance.resources.getString(R.string.TMDB_API_KEY))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
